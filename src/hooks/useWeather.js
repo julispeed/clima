@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { getWeatherByCity } from "../services/wheaterServices";
 
-export const useWeather = (city) => {
+export let useWeather = (city) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
     if (!city) return;
 
     const fetchWeather = async () => {
@@ -15,6 +16,7 @@ export const useWeather = (city) => {
         setError(null);
         const res = await getWeatherByCity(city);
         setData(res);
+        console.log("got data")
       } catch {
         setError("No se pudo obtener el clima");
       } finally {

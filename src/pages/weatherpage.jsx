@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 import { darkTheme, lightTheme } from "../styles/styles";
 import { saveCitySearch } from "../utils/savecitysearch";
 import { useWeather } from "../hooks/useWeather";
-import {WeatherCard} from "../components/watherCard";
+import WeatherCard from "../components/watherCard";
 
 const WeatherPage = () => {
   const { city } = useParams();
@@ -20,17 +20,21 @@ const WeatherPage = () => {
     saveCitySearch(data.location.name);
   }
 
+  const content = loading ? (
+    <p>Cargando clima...</p>
+  ) : error ? (
+    <p>{error}</p>
+  ) : data ? (
+    <WeatherCard weather={data} />
+  ) : null;
+
   return (
     <div style={styles.page}>
       <button style={styles.secondaryButton} onClick={() => navigate("/")}>
         ← Volver
       </button>
 
-      {loading && <p>Cargando clima...</p>}
-
-      {error && <p>{error}</p>}
-
-      {!loading && !error && <WeatherCard weather={data} />}
+      {content}
     </div>
   );
 };
