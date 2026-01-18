@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 import { darkTheme, lightTheme } from "../styles/styles";
 import { saveCitySearch } from "../utils/savecitysearch";
 import { useWeather } from "../hooks/useWeather";
-import WeatherCard from "../components/WeatherCard";
+import {WeatherCard} from "../components/watherCard";
 
 const WeatherPage = () => {
   const { city } = useParams();
