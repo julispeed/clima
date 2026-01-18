@@ -18,26 +18,24 @@ const HomePage = () => {
     }
   };
   return (
-    <div style={styles.page}>
-      <h1 style={styles.title}>🌤 Clima</h1>
+<div style={styles.actions}>
+  <input
+    type="text"
+    placeholder="Ingresá una ciudad"
+    style={styles.input}
+    value={city}
+    onChange={(e) => setCity(e.target.value)}
+    onKeyDown={handleKeyDown}
+  />
 
-      <input
-        type="text"
-        placeholder="Ingresá una ciudad"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        onKeyDown={handleKeyDown}
-        style={styles.input}
-      />
+  <button style={styles.button} onClick={handleSearch}>
+    Buscar clima
+  </button>
 
-      <button style={styles.button} onClick={handleSearch}>
-        Buscar clima
-      </button>
-      
-      <button onClick={toggleTheme} style={styles.button}>
-        Cambiar a {theme === "light" ? "oscuro" : "claro"}
-      </button>      
-    </div>
+  <button style={styles.secondaryButton} onClick={toggleTheme}>
+    Cambiar a oscuro
+  </button>
+</div>
   );
 };
 
