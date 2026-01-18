@@ -7,7 +7,7 @@ import { darkTheme, lightTheme } from "../styles/styles";
 const WeatherPage = () => {
   const { city } = useParams();
   const navigate = useNavigate();
-  const { theme} = useTheme();
+  const { theme,toggleTheme } = useTheme();
 const styles = theme === "light" ? lightTheme : darkTheme;
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,9 +33,9 @@ const styles = theme === "light" ? lightTheme : darkTheme;
 
   return (
     <div style={styles.page}>
-        <div style={styles.screen}>
+  
       {/* Header */}
-      <button style={styles.backButton} onClick={() => navigate("/")}>
+      <button style={styles.secondaryButton} onClick={() => navigate("/")}>
         ← Volver
       </button>
 
@@ -58,7 +58,7 @@ const styles = theme === "light" ? lightTheme : darkTheme;
           <p style={styles.text} >💨 Viento: {weather.current.wind_kph} km/h</p>
         </div>
       )}
-      </div>
+     
     </div>
   );
 };

@@ -1,11 +1,5 @@
 export const lightTheme = {
-  actions: {
-  width: "100%",
-  display: "flex",
-  flexDirection: "column", // 🔑 vertical
-  gap: "12px",
-  alignItems: "stretch",
-},
+
 
 secondaryButton: {
   width: "100%",
@@ -17,12 +11,15 @@ secondaryButton: {
   cursor: "pointer",
 },
   page: {
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    minHeight: "100vh",    
+    justifyContent: "center",    
     backgroundColor: "#f5f5f5",
     padding: "16px", // 🔑 evita bordes en mobile
+    width: "100%",
+    display: "flex",
+    flexDirection: "column", // 🔑 vertical
+    gap: "12px",
+    alignItems: "center",
   },
 
   card: {
@@ -79,9 +76,7 @@ secondaryButton: {
 };
 
 export const darkTheme = {
-  actions: {
-  ...lightTheme.actions,
-},
+
 
 secondaryButton: {
   ...lightTheme.secondaryButton,

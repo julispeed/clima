@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { darkTheme, lightTheme } from "../styles/styles";
 
 const HomePage = () => {
-  const { theme, toggleTheme } = useTheme();
+const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const styles = theme === "light" ? lightTheme : darkTheme;
   const [city, setCity] = useState("");
@@ -18,7 +18,7 @@ const HomePage = () => {
     }
   };
   return (
-<div style={styles.actions}>
+<div style={styles.page}>
   <input
     type="text"
     placeholder="Ingresá una ciudad"
@@ -33,7 +33,7 @@ const HomePage = () => {
   </button>
 
   <button style={styles.secondaryButton} onClick={toggleTheme}>
-    Cambiar a oscuro
+    Cambiar a tema
   </button>
 </div>
   );
