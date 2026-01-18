@@ -3,62 +3,34 @@ import { useEffect, useState } from "react";
 import { getWeatherByCity } from "../services/wheaterServices";
 import { useTheme } from "../context/ThemeContext";
 import { darkTheme, lightTheme } from "../styles/styles";
+import { saveCitySearch } from "../utils/savecitysearch";
+import { useWeather } from "../hooks/useWeather";
+import WeatherCard from "../components/WeatherCard";
 
 const WeatherPage = () => {
   const { city } = useParams();
   const navigate = useNavigate();
-  const { theme,toggleTheme } = useTheme();
-const styles = theme === "light" ? lightTheme : darkTheme;
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { theme } = useTheme();
+  const styles = theme === "light" ? lightTheme : darkTheme;
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  const { data, loading, error } = useWeather(city);
 
-        const data = await getWeatherByCity(city);
-        setWeather(data);
-      } catch (err) {
-        setError("No se pudo obtener el clima");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWeather();
-  }, [city]);
+  // Guardar solo si existe
+  if (data) {
+    saveCitySearch(data.location.name);
+  }
 
   return (
     <div style={styles.page}>
-  
-      {/* Header */}
       <button style={styles.secondaryButton} onClick={() => navigate("/")}>
         ← Volver
       </button>
 
-      <h1 style={styles.title}>Clima en {city}</h1>
-
-      {/* Estados */}
       {loading && <p>Cargando clima...</p>}
-      {error && <p style={styles.error}>{error}</p>}
 
-      {/* Datos */}
-      {weather && !loading && (
-        <div style={styles.card}>
-          <h2 style={styles.title} >{weather.current.condition.text}</h2>
-          <img
-            src={weather.current.condition.icon}
-            alt={weather.current.condition.text}
-          />
-          <p style={styles.text}>🌡️ {weather.current.temp_c}°C</p>
-          <p style={styles.text}>💧 Humedad: {weather.current.humidity}%</p>
-          <p style={styles.text} >💨 Viento: {weather.current.wind_kph} km/h</p>
-        </div>
-      )}
-     
+      {error && <p>{error}</p>}
+
+      {!loading && !error && <WeatherCard weather={data} />}
     </div>
   );
 };
