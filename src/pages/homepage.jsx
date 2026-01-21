@@ -3,6 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { darkTheme, lightTheme } from "../styles/styles";
 import { getSavedCities } from "../utils/savecitysearch";
+import Listatareas from "../components/tareas";
 
 
 const HomePage = () => {
@@ -11,10 +12,14 @@ const { theme, toggleTheme } = useTheme();
   const styles = theme === "light" ? lightTheme : darkTheme;
   const [city, setCity] = useState("");
   const [recentCities, setRecentCities] = useState([]);
-
+  const [nombre, setNombre] = useState('');
+  const [lista, setLista] = useState([]);
     useEffect(() => {
     setRecentCities(getSavedCities());
   }, []);
+const remover = (texto) => {
+  setLista(lista.filter(item => item.texto !== texto));
+};
 
   const handleSearch = () => {
     if (!city.trim()) return;    
@@ -26,6 +31,19 @@ const { theme, toggleTheme } = useTheme();
       handleSearch();
     }
   };
+  const agregar=()=>{
+    if (!nombre.trim()) return;
+    setLista([...lista,{texto:nombre, tachado:false }]);
+    setNombre('');
+  };
+const toggletachado=(nombre)=>
+{
+  setLista(
+    lista.map(
+      item=>item.texto===nombre ? {...item, tachado: !item.tachado} : item
+    )
+  )
+}
   return (
  <div style={styles.page}>
       <input
@@ -61,6 +79,15 @@ const { theme, toggleTheme } = useTheme();
       >
         Cambiar tema
       </button>
+      <input
+        type="text"
+        placeholder="Ingresá un nombre"
+        style={styles.input}
+        value={nombre}
+        onChange={(e)=>setNombre(e.target.value)}
+      />
+      <button style={styles.button} onClick={agregar}>Agregar</button>
+      <Listatareas lista={lista} remover={remover} toggletachado={toggletachado} />
     </div>
 
   );
